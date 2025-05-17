@@ -21,9 +21,7 @@ jobs:
         id: set-tag
         run: |
           if [ "${{ github.repository }}" = "fengyun1980/libretv" ]; then
-            echo "IMAGE_TAG=libretv:latest" >> $GITHUB_OUTPUT
-          else
-            echo "IMAGE_TAG=libretv-beta:latest" >> $GITHUB_OUTPUT
+            echo "IMAGE_TAG=latest" >> $GITHUB_OUTPUT
           fi
           
       - name: Print Docker image tag
@@ -48,6 +46,6 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: "${{ vars.DOCKER_USERNAME }}/${{ env.IMAGE_TAG }}"
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ env.IMAGE_TAG }}
           platforms: linux/amd64,linux/arm64/v8
 
